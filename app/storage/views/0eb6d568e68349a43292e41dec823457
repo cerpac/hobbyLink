@@ -1,0 +1,41 @@
+
+<?php /*  Web site Title  */ ?>
+<?php $__env->startSection('title'); ?>
+Log In
+<?php $__env->stopSection(); ?>
+
+<?php /*  Content  */ ?>
+<?php $__env->startSection('content'); ?>
+
+<h2>Login</h2>
+
+<div class="well">
+	<form class="form-horizontal" action="<?php echo URL::to('admin/users/login'); ?>" method="post">   
+        <?php echo Form::token();; ?>
+
+        <div class="control-group <?php echo ($errors->has('email')) ? 'error' : ''; ?>" for="email">
+            <label class="control-label" for="email">E-mail</label>
+            <div class="controls">
+                <input name="email" id="email" value="<?php echo Request::old('email'); ?>" type="text" class="form-control input-sm" placeholder="E-mail">
+                <?php echo ($errors->has('email') ? $errors->first('email') : ''); ?>
+            </div>
+        </div>
+    
+       <div class="control-group <?php echo $errors->has('password') ? 'error' : ''; ?>" for="password">
+            <label class="control-label" for="password">Parola</label>
+            <div class="controls">
+                <input name="password" value="" type="password" class="form-control input-sm" placeholder="Parola">
+                <?php echo ($errors->has('password') ?  $errors->first('password') : ''); ?>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <input class="btn btn-success btn-xs topBottom" type="submit" value="Log In"> 
+            <a href="<?php echo URL::to('admin/users/resetpassword'); ?>" class="btn btn-link">Ai uitat parola?</a>
+        </div>
+  </form>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('_layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

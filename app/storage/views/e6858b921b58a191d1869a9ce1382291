@@ -1,0 +1,81 @@
+
+<?php /*  Web site Title  */ ?>
+<?php $__env->startSection('title'); ?>
+@parent
+Adauga Eveniment
+<?php $__env->stopSection(); ?>
+
+<?php /*  Content  */ ?>
+<?php $__env->startSection('content'); ?>
+ 
+    <h2>Adauga un eveniment</h2>
+	 
+    <?php echo Form::open(array('route' => 'admin.events.store', 'files' => true, 'class' => 'form-horizontal')); ?>
+ 
+        <div class="form-group">
+            <?php echo Form::label('name', 'Nume', array('class' => 'col-lg-3 control-label')); ?>
+			<div class="col-lg-6">
+				<?php echo Form::text('name', null, array('class' => 'form-control input-sm')); ?>
+				<?php echo ($errors->has('name') ? $errors->first('name', '<span class="input-error">:message</span>') : ''); ?>
+			</div>
+        </div>
+		
+        <div class="form-group">
+            <?php echo Form::label('hobby_id', 'Hobby', array('class' => 'col-lg-3 control-label')); ?>
+			<div class="col-lg-6">
+				<?php echo Form::select('hobby_id', Hobby::orderBy('name', 'asc')->lists('name', 'id'), null, array('class' => 'form-control'));; ?>
+				<?php echo ($errors->has('hobby_id') ? $errors->first('hobby_id', '<span class="input-error">:message</span>') : ''); ?>
+			</div>
+        </div>
+		
+		<div class="form-group">
+            <?php echo Form::label('descr', 'Descriere', array('class' => 'col-lg-3 control-label')); ?>
+			<div class="col-lg-6">
+				<?php echo Form::textarea('descr', null, array('rows' => 8, 'class' => 'form-control')); ?>
+				<?php echo ($errors->has('descr') ? $errors->first('descr', '<span class="input-error block">:message</span>') : ''); ?>
+			</div>
+        </div>
+
+        <div class="form-group">
+            <?php echo Form::label('start', 'Cand incepe?', array('class' => 'col-lg-3 control-label')); ?>
+			<div class="col-lg-2">
+				<?php echo Form::text('start', null, array('class' => 'form-control input-sm')); ?>
+				<?php echo ($errors->has('start') ? $errors->first('start', '<span class="input-error">:message</span>') : ''); ?>
+			</div>
+        </div>
+		
+        <div class="form-group">
+            <?php echo Form::label('end', 'Cand se termina?', array('class' => 'col-lg-3 control-label')); ?>
+			<div class="col-lg-2">
+				<?php echo Form::text('end', null, array('class' => 'form-control input-sm')); ?>
+				<?php echo ($errors->has('end') ? $errors->first('end', '<span class="input-error">:message</span>') : ''); ?>
+			</div>
+        </div>
+
+        <div class="form-group">
+            <?php echo Form::label('address', 'Adresa', array('class' => 'col-lg-3 control-label')); ?>
+			<div class="col-lg-4">
+				<?php echo Form::text('address', null, array('class' => 'form-control input-sm')); ?>
+				<?php echo ($errors->has('address') ? $errors->first('address', '<span class="input-error">:message</span>') : ''); ?>
+			</div>
+        </div>
+
+        <div class="form-group">
+            <?php echo Form::label('image', 'Imagine', array('class' => 'col-lg-3 control-label')); ?>
+			<div class="col-lg-4">
+				<?php echo Form::file('image', array('class' => 'form-control input-sm')); ?>
+				<?php echo ($errors->has('image') ? $errors->first('image', '<span class="input-error">:message</span>') : ''); ?>
+			</div>
+        </div>
+		
+		<div class="form-group">
+			<div class="col-lg-offset-3 col-lg-9">
+				<?php echo Form::submit('Adauga', array('class' => 'btn btn-success btn-large')); ?>
+				<a href="<?php echo URL::route('admin.events.index'); ?>" class="btn btn-default btn-xs topBottom">Anuleaza</a>
+			</div>
+		</div>
+ 
+    <?php echo Form::close(); ?>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('_layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

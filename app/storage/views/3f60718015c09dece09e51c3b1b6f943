@@ -1,0 +1,102 @@
+
+<?php /*  Web site Title  */ ?>
+<?php $__env->startSection('title'); ?>
+@parent
+<?php echo e($entry->name); ?>
+<?php $__env->stopSection(); ?>
+
+<?php /*  Content  */ ?>
+<?php $__env->startSection('content'); ?>
+	<h2><?php echo e($entry->name); ?></h2>
+
+	<div class="removemargin"></div>
+
+	<!-- SECTION 1 - Column 1 -->
+	<div class="three-fifth push-two">
+		<p><?php echo e($entry->descr); ?></p>
+		<p><strong>Cine organizeaza:</strong> <?php echo e($entry->author->first_name); ?> <?php echo e($entry->author->last_name); ?></p>
+		<p><strong>Ce facem:</strong> <?php echo e($entry->hobby->name); ?></p>
+		<p><strong>Unde:</strong> <?php echo e($entry->address); ?></p>
+	</div>
+	<!-- /SECTION 1 - Column 1 -->
+
+	<!-- SECTION 1 - Column 2 -->
+	<div class="two-fifth pull-three last">
+
+		<div class="pic-border"><img src="<?php echo asset($entry->image); ?>" alt=""></div>
+	</div>
+	<!-- /SECTION 1 - Column 2 -->
+
+	<div class="clear">&nbsp;</div>
+
+	<!-- /SECTION 1 -->
+
+	<!-- Registration banner -->
+	<div class="register-pane">
+		<div class="register-pane-inner">
+			<div class="text">
+				<div class="big">
+					<?php echo $entry->name; ?>
+				</div>
+				<div>
+					<?php echo Carbon\Carbon::createFromTimestamp(strtotime($entry->start))->toFormattedDateString(); ?>
+					-
+					<?php echo Carbon\Carbon::createFromTimestamp(strtotime($entry->end))->toFormattedDateString(); ?>
+				</div>
+			</div>
+				
+			<div class="button">
+				<?php if (Sentry::check()): ?>
+				<a href="#g" class="register-button">
+					<span class="hov"></span><span class="inner">Particip!</span>
+				</a>
+				<?php else: ?>
+				<a href="#g" class="register-button">
+					<span class="hov"></span><span class="inner">Vreau!</span>
+				</a>
+				<?php endif; ?>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<!-- /Registration banner -->
+
+	<!-- SECTION 3 -->
+
+	<h2><cufontext>Cine mai vine</cufontext></h2>
+
+	<!-- Speakers -->
+	<ul class="speakers">
+
+		<?php foreach ($entry->users as $user): ?>
+
+			<li>
+				<div class="pic">
+					<img src="<?php echo asset($user->details->image); ?>" alt="" width="74" height="74">
+					<div class="name"><?php echo $user->first_name; ?><br><?php echo $user->last_name; ?></div>
+				</div>
+				<div class="text">
+					<p><i>PHP Developer,<br><span>eMag</span></i></p>					
+					
+					<?php foreach ($user->hobbies as $hobby): ?>
+						<span><?php echo $hobby->name; ?></span>, 
+					<?php endforeach; ?>		
+					
+				</div>
+			</li>
+		<?php endforeach; ?>
+
+	</ul>
+	<div class="clear">&nbsp;</div>
+	<!-- /Speakers -->
+
+	<!-- /SECTION 3 -->
+
+	<div class="removemargin"></div>
+
+	<!-- SECTION 4 -->
+
+	<div class="clear">&nbsp;</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('_layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

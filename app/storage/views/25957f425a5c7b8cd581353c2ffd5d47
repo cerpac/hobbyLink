@@ -1,0 +1,49 @@
+
+<?php /*  Web site Title  */ ?>
+
+<?php $__env->startSection('title'); ?>
+
+@parent
+
+Evenimente
+
+<?php $__env->stopSection(); ?>
+
+
+<?php /*  Content  */ ?>
+
+<?php $__env->startSection('content'); ?>
+
+<h2>Evenimente</h2>
+
+<?php foreach ($entries as $entry): ?>
+
+<!-- Agenda -->
+<div class="pane-wraper">
+    <div class="pane">
+        <!-- Day Head -->
+        <div class="agenda-day">
+        	<a href="<?php echo URL::route('event', $entry-> slug); ?>"><?php echo $entry->name; ?></a>
+            <span style="float:right"><cufontext><?php echo date("d M Y", strtotime($entry->start)); ?></cufontext></span>
+        </div>
+        <!-- /Day Head -->
+
+        <!-- Agenda Item -->
+        <div class="agenda-item shade-lr">
+            <div class="time"><span class="icon-time"><?php echo date("h:m", strtotime($entry->start)); ?> -- <?php echo date('h:m', strtotime($entry->end)); ?></span></div>
+            <div class="description">
+                <p><?php echo e(Str::limit($entry->descr, 250)); ?></p>
+                <div class="room">Unde: <?php echo $entry->address; ?></div>
+            </div>
+            <span class="shade_l"></span><span class="shade_r"></span></div>
+        <!-- /Agenda Item -->
+    </div>
+</div>
+<!-- /Agenda -->
+
+<?php endforeach; ?>
+
+<?php echo $entries->addQuery('order',$order)->addQuery('sort', $sort)->links(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('_layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

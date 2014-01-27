@@ -1,0 +1,8 @@
+@extends('_layouts.default')
+{{-- Web site Title --}}@section('title')@parent
+Hello World
+@stop
+{{-- Content --}}
+@section('content')
+	<div id="homepage-slider" class="slider">		<ul class="slider-slides">			@foreach ($slider as $slide)				<li>					<a href="#">						<span class="img">							<img alt="" src="{{ asset($slide->image) }}"							height="360px">						</span>						<span class="mask"></span>						<span class="text">{{ $slide->name }}</span>					</a>				</li>			@endforeach                        		</ul>		<div class="slider-pager">			<div class="slider-progress">			</div>		</div>	</div>	<h2>Urmatoarele evenimente</h2>	<div class="removemargin"></div>	@foreach ($events as $entry)	<!-- Agenda -->	<div class="pane-wraper">		<div class="pane">			<!-- Day Head -->			<div class="agenda-day">				<a href="{{ URL::route('event', $entry-> slug) }}">{{ $entry->name }}</a>				<span style="float:right"><cufontext>{{ date("d M Y", strtotime($entry->start)) }}</cufontext></span>			</div>			<!-- /Day Head -->			<!-- Agenda Item -->			<div class="agenda-item shade-lr">				<div class="time"><span class="icon-time">{{ date("h:m", strtotime($entry->start)) }} -- {{ date('h:m', strtotime($entry->end)) }}</span></div>				<div class="description">					<p>{{{ Str::limit($entry->descr, 250) }}}</p>					<div class="room">Unde: {{ $entry->address }}</div>				</div>				<span class="shade_l"></span><span class="shade_r"></span></div>			<!-- /Agenda Item -->		</div>	</div>	<!-- /Agenda -->	@endforeach				
+@stop
